@@ -1,0 +1,8 @@
+comtypes==1.2.0
+mss==9.0.1
+numpy==1.23.2
+opencv_python==4.8.0.76
+pandas==1.4.3
+pycaw==20230407
+tqdm==4.64.0
+ultralytics==8.0.190
