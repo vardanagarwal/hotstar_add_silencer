@@ -5,6 +5,11 @@ from ultralytics import YOLO
 
 import platform
 
+if not os.path.exists('match'):
+    os.mkdir('match')
+if not os.path.exists('adds'):
+    os.mkdir('adds')
+
 def platform_setup():
     system_platform = platform.system()
     if system_platform == 'Windows':
