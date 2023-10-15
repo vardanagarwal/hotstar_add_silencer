@@ -11,7 +11,7 @@ if not os.path.exists('adds'):
     os.mkdir('adds')
 
 def platform_setup():
-    system_platform = platform.system()
+    
     if system_platform == 'Windows':
         global IAudioEndpointVolume, AudioUtilities, cast, POINTER, CLSCTX_ALL
         from ctypes import cast, POINTER
@@ -31,7 +31,6 @@ def platform_setup():
     return system_platform
 
 def set_volume(volume):
-    system_platform = platform_setup()
 
     if system_platform == 'Windows':
 
@@ -45,6 +44,8 @@ def set_volume(volume):
     elif system_platform == 'Linux':
         subprocess.run(["amixer", "-c", "0", "set", "Master", f"{volume}%"])
 
+system_platform = platform.system()
+platform_setup()
 if platform.system() == 'Windows':
     devices = AudioUtilities.GetSpeakers()
     interface = devices.Activate(
@@ -53,7 +54,7 @@ if platform.system() == 'Windows':
 
 model = YOLO('trained_model.pt')
 # counter = [max(int(f.split('.')[0]) for f in os.listdir('adds')), max(int(f.split('.')[0]) for f in os.listdir('match')), max(int(f.split('.')[0]) for f in os.listdir('doubt'))]
-# counter = [0, 0, 0]
+counter = [0, 0, 0]
 last = 'match'
 volumes = [0, 70]
 set_volume(volumes[1])
@@ -75,8 +76,8 @@ while True:
                 
                 # written = True
                 if cls != last:
-                    # os.rename("monitor-1.png", f"{cls}/{counter[i]}.png")
-                    # counter[i] += 1
+                    os.rename("monitor-1.png", f"{cls}/{counter[i]}.png")
+                    counter[i] += 1
                     set_volume(volumes[i])
                     last = cls
                 break
